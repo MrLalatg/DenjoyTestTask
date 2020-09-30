@@ -38,6 +38,18 @@ app.post('/auth', (req, res) => {
   }
 });
 
+app.get('/userstatus', (req, res) => {
+  if(req.query.login in config.users){
+    if (req.query.login in logged_in){
+      res.send(`User ${req.query.login} is logged in from ${logged_in[req.query.login]}`);
+    } else {
+      res.send(`User ${req.query.login} is not logged in`);
+    }
+  } else {
+    res.send(`User ${req.query.login} doesn't exitst!`);
+  }
+});
+
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
 });
